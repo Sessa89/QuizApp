@@ -93,3 +93,25 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
 
     document.getElementById('next-button').disabled = false;
 }
+
+// Definition der Funktion zum Anzeigen der nächsten Frage aus dem Array "questions"
+function nextQuestion() {
+    currentQuestion++;      // Variable wird um "1" erhöht, z. B. von "0" auf "1"
+
+    document.getElementById('next-button').disabled = true;     // Button wird wieder auf "nicht anklickbar" gesetzt
+
+    resetAnswerButtons();       // Funktion "resetAnswerButtons()" wird ausgeführt
+    showQuestion();             // Funktion "showQuestion()" wird ausgeführt
+}
+
+// Definition der Funktion zum Zurücksetzen der Antwort-Buttons
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+}
