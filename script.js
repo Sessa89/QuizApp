@@ -1,3 +1,4 @@
+// Definition JSON-Array mit 1x Frage, 4x Antworten, 1x richtige Antwort
 let questions = [
     {
         "question": "Wer hat HTML erfunden?",
@@ -49,24 +50,39 @@ let questions = [
     }
 ];
 
+// Definiton von Variabeln, hier: Beginn bei Frage 1 (= Array an der Stelle "0")
 let currentQuestion = 0;
 
+// Definition der Funktion "Initialisierung"
 function init() {
-    document.getElementById('all-questions').innerHTML = questions.length;
+    document.getElementById('all-questions').innerHTML = questions.length;      // Anzahl der Fragen entsprechend der Länge des Arrays "questions"
     
     showQuestion();
 }
 
+// Definition der Funktion um die Frage anzuzeigen bzw. auszugeben
 function showQuestion() {
-    let question = questions[currentQuestion];
+    let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
 
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+    document.getElementById('questiontext').innerHTML = question['question'];   // Ausgabe der Frage im Feld mit ID = "questiontext" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_1').innerHTML = question['answer_1'];       // Ausgabe der 1. Antwort im Feld mit ID = "answer_1" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_2').innerHTML = question['answer_2'];       // Ausgabe der 2. Antwort im Feld mit ID = "answer_2" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_3').innerHTML = question['answer_3'];       // Ausgabe der 3. Antwort im Feld mit ID = "answer_3" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_4').innerHTML = question['answer_4'];       // Ausgabe der 4. Antwort im Feld mit ID = "answer_4" an der Stelle "0" des Arrays "questions"
 }
 
-function answer(selection) {
-    
+// Definition der Funktion bzgl. der ausgewählten Frage
+function answer(selection) {    // "selection" entspricht hier dem Wert (Variable), welcher aus HTML mitgegeben wird
+    let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
+
+    console.log('selected answer is ', selection);  // Ausgabe des Textes "selected answer is" und der ausgewählten Antwort (Variable) in der Konsole
+    let selectedQuestionNumber = selection.slice(-1);   // Definition der Variable "selectedQuestionNumber", hier: Ausgabe des letzten Zeichens (Buchstabe oder Zahl) der voran mitgegebenen Variablen
+    console.log('selectedQuestionNumber is ', selectedQuestionNumber);  // Ausgabe des Textes "selectedQuestionNumber is" und das letzte Zeichen der voran mitgegebenen Variablen in der Konsole
+    console.log('Current question is ', question['right_answer']);  // Ausgabe des Textes "Current question is" und der richtigen Antwort (hier: an der Stelle "0" des Arrays) in der Konsole
+
+    if(selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
+        console.log('Richtige Antwort!');
+    } else {
+        console.log('Falsche Antwort!');
+    }
 }
