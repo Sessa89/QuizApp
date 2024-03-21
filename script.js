@@ -64,6 +64,7 @@ function init() {
 function showQuestion() {
     let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
 
+    document.getElementById('question-number').innerHTML = currentQuestion + 1;
     document.getElementById('questiontext').innerHTML = question['question'];   // Ausgabe der Frage im Feld mit ID = "questiontext" an der Stelle "0" des Arrays "questions"
     document.getElementById('answer_1').innerHTML = question['answer_1'];       // Ausgabe der 1. Antwort im Feld mit ID = "answer_1" an der Stelle "0" des Arrays "questions"
     document.getElementById('answer_2').innerHTML = question['answer_2'];       // Ausgabe der 2. Antwort im Feld mit ID = "answer_2" an der Stelle "0" des Arrays "questions"
