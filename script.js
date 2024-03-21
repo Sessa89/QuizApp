@@ -90,4 +90,6 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
+
+    document.getElementById('next-button').disabled = false;
 }
