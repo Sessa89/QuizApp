@@ -80,11 +80,14 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
     console.log('selectedQuestionNumber is ', selectedQuestionNumber);  // Ausgabe des Textes "selectedQuestionNumber is" und das letzte Zeichen der voran mitgegebenen Variablen in der Konsole
     console.log('Current question is ', question['right_answer']);  // Ausgabe des Textes "Current question is" und der richtigen Antwort (hier: an der Stelle "0" des Arrays) in der Konsole
 
+    let idOfRightAnswer = `answer_${question['right_answer']}`;
+
     if(selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
         console.log('Richtige Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-success');  // Eltern-Element bekommt die Klasse "bg-success" hinzugefügt (Container wird grün)
     } else {
         console.log('Falsche Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
 }
