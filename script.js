@@ -82,7 +82,9 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
 
     if(selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
         console.log('Richtige Antwort!');
+        document.getElementById(selection).parentNode.classList.add('bg-success');  // Eltern-Element bekommt die Klasse "bg-success" hinzugefügt (Container wird grün)
     } else {
         console.log('Falsche Antwort!');
+        document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
     }
 }
