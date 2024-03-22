@@ -65,6 +65,8 @@ function showQuestion() {
 
     if (currentQuestion >= questions.length) {      // if-else-Abfrage bzgl. der Arraylänge
         // TODO: Show End Screen
+        document.getElementById('endScreen').style = '';
+        document.getElementById('questionBody').style = 'display: none;'
     } else {
 
         let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
