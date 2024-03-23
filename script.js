@@ -70,6 +70,7 @@ function showQuestion() {
 
         document.getElementById('amount-of-questions').innerHTML = questions.length;
         document.getElementById('amount-of-right-questions').innerHTML = rightQuestions;
+        document.getElementById('header-image').src = "img/trophy.png";
     } else {
 
         let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
