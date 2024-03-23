@@ -50,6 +50,7 @@ let questions = [
     }
 ];
 
+
 // Definiton von Variabeln, hier: Beginn bei Frage 1 (= Array an der Stelle "0")
 let currentQuestion = 0;
 let rightQuestions = 0;
@@ -64,53 +65,36 @@ function init() {
     showQuestion();
 }
 
-// Definition der Funktion um die Frage anzuzeigen bzw. auszugeben
+
+// Definition der Funktion um Fragen ODER den Endscreen anzuzeigen bzw. auszugeben
 function showQuestion() {
 
-    if (currentQuestion >= questions.length) {      // if-else-Abfrage bzgl. der Arraylänge
-        document.getElementById('endScreen').style = '';
-        document.getElementById('questionBody').style = 'display: none;'
-
-        document.getElementById('amount-of-questions').innerHTML = questions.length;
-        document.getElementById('amount-of-right-questions').innerHTML = rightQuestions;
-        document.getElementById('header-image').src = "img/trophy.png";
+    if (gameIsOver()) {
+        showEndScreen();
     } else {
-
-        let percent = (currentQuestion + 1) / questions.length;
-        percent = Math.round(percent * 100);
-        console.log('Fortschritt:', percent);
-        document.getElementById('progress-bar').innerHTML = `${percent} %`;
-        document.getElementById('progress-bar').style = `width: ${percent}%`;
-
-        let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
-
-        document.getElementById('question-number').innerHTML = currentQuestion + 1;
-        document.getElementById('questiontext').innerHTML = question['question'];   // Ausgabe der Frage im Feld mit ID = "questiontext" an der Stelle "0" des Arrays "questions"
-        document.getElementById('answer_1').innerHTML = question['answer_1'];       // Ausgabe der 1. Antwort im Feld mit ID = "answer_1" an der Stelle "0" des Arrays "questions"
-        document.getElementById('answer_2').innerHTML = question['answer_2'];       // Ausgabe der 2. Antwort im Feld mit ID = "answer_2" an der Stelle "0" des Arrays "questions"
-        document.getElementById('answer_3').innerHTML = question['answer_3'];       // Ausgabe der 3. Antwort im Feld mit ID = "answer_3" an der Stelle "0" des Arrays "questions"
-        document.getElementById('answer_4').innerHTML = question['answer_4'];       // Ausgabe der 4. Antwort im Feld mit ID = "answer_4" an der Stelle "0" des Arrays "questions"
+        updateProgressBar();
+        updateToNextQuestion();
     }
 }
+
+
+// Definition der Funktion um den Fragenfortschritt zu prüfen
+function gameIsOver() {
+    return currentQuestion >= questions.length      // Ausgabe: "true" oder "false"
+}
+
 
 // Definition der Funktion bzgl. der ausgewählten Frage
 function answer(selection) {    // "selection" entspricht hier dem Wert (Variable), welcher aus HTML mitgegeben wird
     let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
-
-    console.log('selected answer is ', selection);  // Ausgabe des Textes "selected answer is" und der ausgewählten Antwort (Variable) in der Konsole
     let selectedQuestionNumber = selection.slice(-1);   // Definition der Variable "selectedQuestionNumber", hier: Ausgabe des letzten Zeichens (Buchstabe oder Zahl) der voran mitgegebenen Variablen
-    console.log('selectedQuestionNumber is ', selectedQuestionNumber);  // Ausgabe des Textes "selectedQuestionNumber is" und das letzte Zeichen der voran mitgegebenen Variablen in der Konsole
-    console.log('Current question is ', question['right_answer']);  // Ausgabe des Textes "Current question is" und der richtigen Antwort (hier: an der Stelle "0" des Arrays) in der Konsole
-
     let idOfRightAnswer = `answer_${question['right_answer']}`;
 
-    if (selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
-        console.log('Richtige Antwort!');
+    if (rightAnswerSelected(selectedQuestionNumber)) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
         document.getElementById(selection).parentNode.classList.add('bg-success');  // Eltern-Element bekommt die Klasse "bg-success" hinzugefügt (Container wird grün)
         AUDIO_SUCCESS.play();
         rightQuestions++;
     } else {
-        console.log('Falsche Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
         AUDIO_FAIL.play();
@@ -118,6 +102,13 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
 
     document.getElementById('next-button').disabled = false;
 }
+
+
+// Definition der Funktion um zu prüfen, ob die richtige Antwort ausgewählt worden ist
+function rightAnswerSelected(selectedQuestionNumber) {
+    return selectedQuestionNumber == question['right_answer'];
+}
+
 
 // Definition der Funktion zum Anzeigen der nächsten Frage aus dem Array "questions"
 function nextQuestion() {
@@ -128,6 +119,7 @@ function nextQuestion() {
     resetAnswerButtons();       // Funktion "resetAnswerButtons()" wird ausgeführt
     showQuestion();             // Funktion "showQuestion()" wird ausgeführt
 }
+
 
 // Definition der Funktion zum Zurücksetzen der Antwort-Buttons
 function resetAnswerButtons() {
@@ -141,6 +133,8 @@ function resetAnswerButtons() {
     document.getElementById('answer_4').parentNode.classList.remove('bg-success');
 }
 
+
+// Definition der Funktion zum Neustart des Spiels
 function restartGame() {
     document.getElementById('header-image').src = "img/quiz.jpg";
     document.getElementById('questionBody').style = '';                 // questionBody wieder anzeigen
@@ -149,4 +143,38 @@ function restartGame() {
     rightQuestions = 0;
 
     init();
+}
+
+
+// Definition der Funktion zum Anzeigen des Endscreens
+function showEndScreen() {
+    document.getElementById('endScreen').style = '';
+    document.getElementById('questionBody').style = 'display: none;'
+    document.getElementById('amount-of-questions').innerHTML = questions.length;
+    document.getElementById('amount-of-right-questions').innerHTML = rightQuestions;
+    document.getElementById('header-image').src = "img/trophy.png";
+}
+
+
+// Definition der Funktion zum Updaten des Fortschrittbalkens
+function updateProgressBar() {
+    let percent = (currentQuestion + 1) / questions.length;
+    percent = Math.round(percent * 100);
+    console.log('Fortschritt:', percent);
+
+    document.getElementById('progress-bar').innerHTML = `${percent} %`;
+    document.getElementById('progress-bar').style = `width: ${percent}%`;
+}
+
+
+// Definition der Funktion bzgl. dem Update zur nächsten Frage
+function updateToNextQuestion() {
+    let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
+
+    document.getElementById('question-number').innerHTML = currentQuestion + 1;
+    document.getElementById('questiontext').innerHTML = question['question'];   // Ausgabe der Frage im Feld mit ID = "questiontext" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_1').innerHTML = question['answer_1'];       // Ausgabe der 1. Antwort im Feld mit ID = "answer_1" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_2').innerHTML = question['answer_2'];       // Ausgabe der 2. Antwort im Feld mit ID = "answer_2" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_3').innerHTML = question['answer_3'];       // Ausgabe der 3. Antwort im Feld mit ID = "answer_3" an der Stelle "0" des Arrays "questions"
+    document.getElementById('answer_4').innerHTML = question['answer_4'];       // Ausgabe der 4. Antwort im Feld mit ID = "answer_4" an der Stelle "0" des Arrays "questions"
 }
