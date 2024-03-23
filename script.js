@@ -73,6 +73,12 @@ function showQuestion() {
         document.getElementById('header-image').src = "img/trophy.png";
     } else {
 
+        let percent = (currentQuestion + 1) / questions.length;
+        percent = Math.round(percent * 100);
+        console.log('Fortschritt:', percent);
+        document.getElementById('progress-bar').innerHTML = `${percent} %`;
+        document.getElementById('progress-bar').style = `width: ${percent}%`;
+
         let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
 
         document.getElementById('question-number').innerHTML = currentQuestion + 1;
