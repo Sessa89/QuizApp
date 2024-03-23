@@ -52,6 +52,7 @@ let questions = [
 
 // Definiton von Variabeln, hier: Beginn bei Frage 1 (= Array an der Stelle "0")
 let currentQuestion = 0;
+let rightQuestions = 0;
 
 // Definition der Funktion "Initialisierung"
 function init() {
@@ -64,9 +65,11 @@ function init() {
 function showQuestion() {
 
     if (currentQuestion >= questions.length) {      // if-else-Abfrage bzgl. der Arraylänge
-        // TODO: Show End Screen
         document.getElementById('endScreen').style = '';
         document.getElementById('questionBody').style = 'display: none;'
+
+        document.getElementById('amount-of-questions').innerHTML = questions.length;
+        document.getElementById('amount-of-right-questions').innerHTML = rightQuestions;
     } else {
 
         let question = questions[currentQuestion];  // Definition der Variable "question", hier: Array "questions" anhand Variable "currentQuestion" (hier = 0)
@@ -94,6 +97,7 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
     if (selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
         console.log('Richtige Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-success');  // Eltern-Element bekommt die Klasse "bg-success" hinzugefügt (Container wird grün)
+        rightQuestions++;
     } else {
         console.log('Falsche Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
