@@ -53,6 +53,9 @@ let questions = [
 // Definiton von Variabeln, hier: Beginn bei Frage 1 (= Array an der Stelle "0")
 let currentQuestion = 0;
 let rightQuestions = 0;
+let AUDIO_SUCCESS = new Audio('audio/success.mp3');
+let AUDIO_FAIL = new Audio('audio/fail.mp3');
+
 
 // Definition der Funktion "Initialisierung"
 function init() {
@@ -104,11 +107,13 @@ function answer(selection) {    // "selection" entspricht hier dem Wert (Variabl
     if (selectedQuestionNumber == question['right_answer']) {        // if-else-Abfrage => entspricht das letzte Zeichen der voran mitgegebenen Variablen dem Wert der richtigen Antwort, dann wird "richtig" in der Konsole ausgeben, ansonsten "falsch"
         console.log('Richtige Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-success');  // Eltern-Element bekommt die Klasse "bg-success" hinzugefügt (Container wird grün)
+        AUDIO_SUCCESS.play();
         rightQuestions++;
     } else {
         console.log('Falsche Antwort!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');   // Eltern-Element bekommt die Klasse "bg-danger" hinzugefügt (Container wird rot)
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play();
     }
 
     document.getElementById('next-button').disabled = false;
